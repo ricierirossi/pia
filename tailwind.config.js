@@ -12,6 +12,9 @@ export default {
             backgroundImage: {
                 pia: "url('/assets/images/pia.png')",
             },
+            spacing: {
+                88: "345px",
+            },
         },
         plugins: [],
     },
