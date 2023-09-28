@@ -15,6 +15,10 @@ export default {
             spacing: {
                 88: "345px",
             },
+            screens: {
+                tablet: "850px",
+                desktop: "",
+            },
         },
         plugins: [],
     },
