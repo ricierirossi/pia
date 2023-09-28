@@ -24,5 +24,4 @@ logs
 !.env.example
 
 # CSS
-src
-dist
+assets/css
