@@ -13,7 +13,7 @@
                         class="text-gray-600 border rounded-20 border-gray-400 w-96 py-2 px-5"
                     />
                 </div>
-                <!-- !! Corrigir os olhinhos :D -->
+                <!-- TODO Corrigir os olhinhos :D -->
                 <span
                     v-if="!visible"
                     @click="visible = !visible"
@@ -68,6 +68,4 @@ export default {
 };
 </script>
 
-<style>
-@import "../dist/output.css";
-</style>
+<style></style>
