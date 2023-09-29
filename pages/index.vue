@@ -1,7 +1,7 @@
 <template>
-    <div class="h-screen font-lato tablet:flex">
+    <div class="h-auto font-lato tablet:flex">
         <div
-            class="h-40 w-full bg-pia bg-cover bg-top-2 tablet:h-auto tablet:w-1/2"
+            class="h-40 w-full bg-pia bg-cover bg-top-20 tablet:bg-left-top tablet:h-auto tablet:w-1/2"
         ></div>
         <div
             class="text-base text-zinc-800 flex flex-col items-center tablet:w-1/2"
@@ -10,81 +10,109 @@
                 Venha fazer parte do Piá!
             </h1>
             <div class="flex-col pb-8">
-                <div>
-                    <div class="pl-5">Digite seu e-mail</div>
-                    <input
-                        id="email"
-                        type="email"
-                        placeholder="Ex: passarinho@gmail.com"
-                        required
-                        class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 mb-3"
-                    />
-                </div>
-                <div>
-                    <div class="pl-5">Confirme seu e-mail</div>
-                    <input
-                        id="confirmEmail"
-                        type="email"
-                        placeholder="Ex: passarinho@gmail.com"
-                        required
-                        class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 mb-3"
-                    />
-                </div>
-                <div>
-                    <div class="pl-5">Digite sua senha</div>
-                    <input
-                        id="password"
-                        type="password"
-                        placeholder="Informe sua senha"
-                        required
-                        class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 mb-3"
-                    />
-                    <div
-                        v-if="visiblePassword"
-                        @click="showPassword()"
-                        class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
-                    >
-                        visibility_off
+                <form>
+                    <div>
+                        <div class="pl-5">Digite seu e-mail</div>
+                        <input
+                            id="email"
+                            type="email"
+                            placeholder="Ex: passarinho@gmail.com"
+                            required
+                            @change="validateEmail()"
+                            class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 mb-3 focus:outline-none"
+                        />
                     </div>
-                    <div
-                        v-if="!visiblePassword"
-                        @click="showPassword()"
-                        class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
-                    >
-                        visibility
+                    <div>
+                        <div class="pl-5">Confirme seu e-mail</div>
+                        <div>
+                            <input
+                                id="confirmEmail"
+                                type="email"
+                                placeholder="Ex: passarinho@gmail.com"
+                                required
+                                @change="validateEmail()"
+                                class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 focus:outline-none"
+                            />
+                            <div
+                                v-if="!equalEmail"
+                                class="text-xs text-red-600 px-5 font-extrabold"
+                            >
+                                E-mails não correspondem
+                            </div>
+                            <div v-else class="h-4"></div>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <div class="pl-5">Confirme sua senha</div>
-                    <input
-                        id="confirmPassword"
-                        type="password"
-                        placeholder="Confirme sua senha"
-                        required
-                        class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 mb-3"
-                    />
-                    <div
-                        v-if="visibleConfirmPassword"
-                        @click="showConfirmPassword()"
-                        class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
-                    >
-                        visibility_off
+                    <div>
+                        <div class="pl-5">Digite sua senha</div>
+                        <input
+                            id="password"
+                            type="password"
+                            placeholder="Informe sua senha"
+                            minlength="8"
+                            required
+                            @change="validatePassword()"
+                            class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 mb-3 focus:outline-none"
+                        />
+                        <div
+                            v-if="visiblePassword"
+                            @click="showPassword()"
+                            class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
+                        >
+                            visibility_off
+                        </div>
+                        <div
+                            v-if="!visiblePassword"
+                            @click="showPassword()"
+                            class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
+                        >
+                            visibility
+                        </div>
+                        <div>
+                            <div class="pl-5">Confirme sua senha</div>
+                            <input
+                                id="confirmPassword"
+                                type="password"
+                                placeholder="Confirme sua senha"
+                                minlength="8"
+                                required
+                                @change="validatePassword()"
+                                class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 focus:outline-none"
+                            />
+                            <div
+                                v-if="visibleConfirmPassword"
+                                @click="showConfirmPassword()"
+                                class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
+                            >
+                                visibility_off
+                            </div>
+                            <div
+                                v-if="!visibleConfirmPassword"
+                                @click="showConfirmPassword()"
+                                class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
+                            >
+                                visibility
+                            </div>
+                            <div
+                                v-if="!equalPassword"
+                                class="text-xs text-red-600 px-5 font-extrabold mb-3"
+                            >
+                                Senhas não correspondem
+                            </div>
+                            <div v-else class="h-7"></div>
+                        </div>
+                        <div @click="console.log(!this.disabled)">clica</div>
+                        <input
+                            id="submit"
+                            type="submit"
+                            value="Crie sua conta já"
+                            :disabled="!disabled"
+                            :class="{ 'bg-black': !this.disabled }"
+                            class="text-xl text-white text-center bg-sky-600 w-96 py-3 px-20 rounded-20 hover:cursor-pointer"
+                        />
                     </div>
-                    <div
-                        v-if="!visibleConfirmPassword"
-                        @click="showConfirmPassword()"
-                        class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
-                    >
-                        visibility
-                    </div>
-                </div>
+                </form>
             </div>
 
-            <div
-                class="text-xl text-white text-center bg-sky-600 w-96 py-3 px-20 rounded-20 hover:cursor-pointer"
-            >
-                Crie sua conta já
-            </div>
             <p class="w-96 text-xs pt-2 pb-2 text-center">
                 Ao se inscrever, você concorda com os
                 <span class="underline">Termos de Serviço</span> e a
@@ -92,12 +120,14 @@
                 incluindo o <span class="underline">Uso de Cookies</span>.
             </p>
 
-            <hr />
+            <hr class="h-0.5 w-96 bg-gray-400 my-8" />
 
             <p>
                 Já possui conta?
-                <span class="text-sky-600 hover:cursor-pointer pb-7"
-                    >Iniciar sessão</span
+                <NuxtLink to="/login">
+                    <span class="text-sky-600 hover:cursor-pointer pb-7"
+                        >Iniciar sessão</span
+                    ></NuxtLink
                 >
             </p>
         </div>
@@ -110,6 +140,9 @@ export default {
         return {
             visiblePassword: false,
             visibleConfirmPassword: false,
+            equalEmail: false,
+            equalPassword: false,
+            disabled: false,
         };
     },
     methods: {
@@ -125,6 +158,35 @@ export default {
                 ? (document.getElementById("confirmPassword").type = "text")
                 : (document.getElementById("confirmPassword").type =
                       "password");
+        },
+        validateEmail() {
+            var email = document.getElementById("email").value;
+            var confirmEmail = document.getElementById("confirmEmail").value;
+
+            if (email && (!!email && confirmEmail && !!confirmEmail) == true) {
+                this.equalEmail = true;
+            } else {
+                this.equalEmail = false;
+            }
+            <!-- TODO Verificar-->
+            console.log(this.equalEmail);
+
+            this.disabled = this.equalEmail && this.equalPassword;
+        },
+        validatePassword() {
+            var password = document.getElementById("password").value;
+            var confirmPassword =
+                document.getElementById("confirmPassword").value;
+
+            if (
+                password &&
+                (!!password && confirmPassword && !!confirmPassword) == true
+            ) {
+                this.equalPassword = true;
+            } else {
+                this.equalPassword = false;
+            }
+            this.disabled = this.equalEmail && this.equalPassword;
         },
     },
 };
