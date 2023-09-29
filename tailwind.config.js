@@ -12,10 +12,14 @@ export default {
             backgroundImage: {
                 pia: "url('/assets/images/pia.png')",
             },
+            backgroundPosition: {
+                "top-20": "0 35%",
+            },
             spacing: {
                 88: "345px",
             },
             screens: {
+                mobile: "0",
                 tablet: "850px",
                 desktop: "",
             },
