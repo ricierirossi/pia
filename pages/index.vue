@@ -9,6 +9,7 @@
             <h1 class="text-4xl my-5 tablet:mt-14">
                 Venha fazer parte do Piá!
             </h1>
+
             <div class="flex-col pb-8">
                 <form>
                     <div>
@@ -18,7 +19,7 @@
                             type="email"
                             placeholder="Ex: passarinho@gmail.com"
                             required
-                            @change="validateEmail()"
+                            v-model="email"
                             class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 mb-3 focus:outline-none"
                         />
                     </div>
@@ -30,7 +31,7 @@
                                 type="email"
                                 placeholder="Ex: passarinho@gmail.com"
                                 required
-                                @change="validateEmail()"
+                                v-model="confirmEmail"
                                 class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 focus:outline-none"
                             />
                             <div
@@ -50,7 +51,7 @@
                             placeholder="Informe sua senha"
                             minlength="8"
                             required
-                            @change="validatePassword()"
+                            v-model="password"
                             class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 mb-3 focus:outline-none"
                         />
                         <div
@@ -75,7 +76,7 @@
                                 placeholder="Confirme sua senha"
                                 minlength="8"
                                 required
-                                @change="validatePassword()"
+                                v-model="confirmPassword"
                                 class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 focus:outline-none"
                             />
                             <div
@@ -100,13 +101,13 @@
                             </div>
                             <div v-else class="h-7"></div>
                         </div>
-                        <div @click="console.log(!this.disabled)">clica</div>
+
                         <input
                             id="submit"
                             type="submit"
                             value="Crie sua conta já"
-                            :disabled="!disabled"
-                            :class="{ 'bg-black': !this.disabled }"
+                            :disabled="!validatedForm"
+                            :class="{ 'bg-sky-300': !validatedForm }"
                             class="text-xl text-white text-center bg-sky-600 w-96 py-3 px-20 rounded-20 hover:cursor-pointer"
                         />
                     </div>
@@ -138,14 +139,38 @@
 export default {
     data: function () {
         return {
+            email: "",
+            password: "",
+            confirmEmail: "",
+            confirmPassword: "",
+            equalEmail: "",
+            equalPassword: "",
             visiblePassword: false,
             visibleConfirmPassword: false,
-            equalEmail: false,
-            equalPassword: false,
-            disabled: false,
+            validatedForm: "",
         };
     },
     methods: {
+        validateEmail() {
+            if (this.email == "" || this.confirmEmail == "") {
+                this.equalEmail = false;
+            } else if (this.email == this.confirmEmail) {
+                this.equalEmail = true;
+            } else {
+                this.equalEmail = false;
+            }
+            this.validatedForm = this.equalEmail && this.equalPassword;
+        },
+        validatePassword() {
+            if (this.password == "" || this.confirmPassword == "") {
+                this.equalPassword = false;
+            } else if (this.password == this.confirmPassword) {
+                this.equalPassword = true;
+            } else {
+                this.equalPassword = false;
+            }
+            this.validatedForm = this.equalEmail && this.equalPassword;
+        },
         showPassword() {
             this.visiblePassword = !this.visiblePassword;
             this.visiblePassword
@@ -159,34 +184,19 @@ export default {
                 : (document.getElementById("confirmPassword").type =
                       "password");
         },
-        validateEmail() {
-            var email = document.getElementById("email").value;
-            var confirmEmail = document.getElementById("confirmEmail").value;
-
-            if (email && (!!email && confirmEmail && !!confirmEmail) == true) {
-                this.equalEmail = true;
-            } else {
-                this.equalEmail = false;
-            }
-            <!-- TODO Verificar-->
-            console.log(this.equalEmail);
-
-            this.disabled = this.equalEmail && this.equalPassword;
+    },
+    watch: {
+        email() {
+            this.validateEmail();
         },
-        validatePassword() {
-            var password = document.getElementById("password").value;
-            var confirmPassword =
-                document.getElementById("confirmPassword").value;
-
-            if (
-                password &&
-                (!!password && confirmPassword && !!confirmPassword) == true
-            ) {
-                this.equalPassword = true;
-            } else {
-                this.equalPassword = false;
-            }
-            this.disabled = this.equalEmail && this.equalPassword;
+        confirmEmail() {
+            this.validateEmail();
+        },
+        password() {
+            this.validatePassword();
+        },
+        confirmPassword() {
+            this.validatePassword();
         },
     },
 };
