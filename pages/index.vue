@@ -9,9 +9,10 @@
             <h1 class="text-4xl my-5 tablet:mt-14">
                 Venha fazer parte do Piá!
             </h1>
-
+            <!-- ! FIX -->
+            <p>{{ usersStore.countUsers }}</p>
             <div class="flex-col pb-8">
-                <form>
+                <form @submit.prevent="handleSubmit">
                     <div>
                         <div class="pl-5">Digite seu e-mail</div>
                         <input
@@ -107,7 +108,7 @@
                             type="submit"
                             value="Crie sua conta já"
                             :disabled="!validatedForm"
-                            :class="{ 'bg-sky-300': !validatedForm }"
+                            :class="{ 'disabled-button': !validatedForm }"
                             class="text-xl text-white text-center bg-sky-600 w-96 py-3 px-20 rounded-20 hover:cursor-pointer"
                         />
                     </div>
@@ -136,11 +137,29 @@
 </template>
 
 <script>
+import { useUsersStore } from "~/stores/UsersStore";
+import { ref } from "vue";
+
 export default {
+    setup() {
+        const usersStore = useUsersStore();
+
+        const email = ref("");
+        const password = ref("");
+
+        const handleSubmit = () => {
+            usersStore.addUser({
+                id: Math.floor(Math.random() * 1000000),
+                email: email.value,
+                password: password.value,
+            });
+        };
+
+        return { handleSubmit, email, password };
+    },
+
     data: function () {
         return {
-            email: "",
-            password: "",
             confirmEmail: "",
             confirmPassword: "",
             equalEmail: "",
