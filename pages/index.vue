@@ -47,7 +47,7 @@
                         <div class="pl-5">Digite sua senha</div>
                         <input
                             id="password"
-                            type="password"
+                            :type="typePassword"
                             placeholder="Informe sua senha"
                             minlength="8"
                             required
@@ -55,14 +55,14 @@
                             class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 mb-3 focus:outline-none"
                         />
                         <div
-                            v-if="visiblePassword"
+                            v-if="!(typePassword == 'text')"
                             @click="showPassword()"
                             class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
                         >
                             visibility_off
                         </div>
                         <div
-                            v-if="!visiblePassword"
+                            v-if="typePassword == 'text'"
                             @click="showPassword()"
                             class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
                         >
@@ -72,7 +72,7 @@
                             <div class="pl-5">Confirme sua senha</div>
                             <input
                                 id="confirmPassword"
-                                type="password"
+                                :type="typeConfirmPassword"
                                 placeholder="Confirme sua senha"
                                 minlength="8"
                                 required
@@ -80,14 +80,14 @@
                                 class="text-gray-600 border rounded-20 top-2 border-gray-400 w-96 py-2 px-5 focus:outline-none"
                             />
                             <div
-                                v-if="visibleConfirmPassword"
+                                v-if="!(typeConfirmPassword == 'text')"
                                 @click="showConfirmPassword()"
                                 class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
                             >
                                 visibility_off
                             </div>
                             <div
-                                v-if="!visibleConfirmPassword"
+                                v-if="typeConfirmPassword == 'text'"
                                 @click="showConfirmPassword()"
                                 class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
                             >
@@ -145,9 +145,9 @@ export default {
             confirmPassword: "",
             equalEmail: "",
             equalPassword: "",
-            visiblePassword: false,
-            visibleConfirmPassword: false,
             validatedForm: "",
+            typePassword: "password",
+            typeConfirmPassword: "password",
         };
     },
     methods: {
@@ -172,17 +172,18 @@ export default {
             this.validatedForm = this.equalEmail && this.equalPassword;
         },
         showPassword() {
-            this.visiblePassword = !this.visiblePassword;
-            this.visiblePassword
-                ? (document.getElementById("password").type = "text")
-                : (document.getElementById("password").type = "password");
+            if (this.typePassword == "password") {
+                this.typePassword = "text";
+            } else if (this.typePassword == "text") {
+                this.typePassword = "password";
+            }
         },
         showConfirmPassword() {
-            this.visibleConfirmPassword = !this.visibleConfirmPassword;
-            this.visibleConfirmPassword
-                ? (document.getElementById("confirmPassword").type = "text")
-                : (document.getElementById("confirmPassword").type =
-                      "password");
+            if (this.typeConfirmPassword == "password") {
+                this.typeConfirmPassword = "text";
+            } else if (this.typeConfirmPassword == "text") {
+                this.typeConfirmPassword = "password";
+            }
         },
     },
     watch: {
