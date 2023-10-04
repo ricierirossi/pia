@@ -15,9 +15,16 @@
             <div class="px-7 py-2">
                 <p class="max-w-sm text-xs text-center">
                     Ao se inscrever, você concorda com os
-                    <span class="underline">Termos de Serviço</span> e a
-                    <span class="underline">Política de Privacidade</span>,
-                    incluindo o <span class="underline">Uso de Cookies</span>.
+                    <span class="underline hover:cursor-pointer"
+                        >Termos de Serviço</span
+                    >
+                    e a
+                    <span class="underline hover:cursor-pointer"
+                        >Política de Privacidade</span
+                    >, incluindo o
+                    <span class="underline hover:cursor-pointer"
+                        >Uso de Cookies</span
+                    >.
                 </p>
             </div>
 
