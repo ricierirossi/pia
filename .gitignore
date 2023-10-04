@@ -27,3 +27,5 @@ logs
 assets/css
 
 .vercel
+
+todo.vue
