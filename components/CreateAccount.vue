@@ -1,112 +1,81 @@
 <template>
     <div class="w-full max-w-sm flex-col tablet:w-96">
-        <form
-            class="flex-col justify-center items-center"
-            @submit.prevent="handleSubmit"
-        >
-            <div>
-                <div class="pl-5">Digite seu e-mail</div>
-                <input
-                    id="email"
-                    type="email"
-                    placeholder="Ex: passarinho@gmail.com"
-                    required
-                    v-model="email"
-                    class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-3 focus:outline-none"
-                />
+        <form class="flex-col justify-center items-center">
+            <div class="pl-5">Digite seu e-mail</div>
+            <input
+                v-model="email"
+                type="email"
+                novalidate="true"
+                placeholder="Ex: passarinho@email.com"
+                class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-4 focus:outline-none"
+                :class="{ 'border-lime-600 border-2': isValidEmail }"
+            />
+            <div class="pl-5">Confirme seu e-mail</div>
+            <input
+                v-model="confirmEmail"
+                type="confirmEmail"
+                novalidate="true"
+                placeholder="Ex: passarinho@email.com"
+                class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-4 focus:outline-none"
+                :class="{ 'border-lime-600 border-2': equalEmail }"
+            />
+            <div class="pl-5">Digite sua senha</div>
+            <input
+                v-model="password"
+                type="password"
+                placeholder="Insira sua senha"
+                class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-4 focus:outline-none"
+                :class="{ 'border-lime-600 border-2': isValidPassword }"
+            />
+            <div class="pl-5">Confirme sua senha</div>
+            <input
+                v-model="confirmPassword"
+                type="password"
+                placeholder="Confirme sua senha"
+                class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-1 focus:outline-none"
+                :class="{ 'border-lime-600 border-2': equalPassword }"
+            />
+            <div class="text-xs text-gray-600 pb-2 px-5">
+                A senha deve incluir ao menos:
+                <ul class="px-6">
+                    <li>8 dígitos</li>
+                    <li>1 letra minúscula</li>
+                    <li>1 letra maiúscula</li>
+                    <li>1 dígito</li>
+                    <li>1 caractere especial</li>
+                </ul>
             </div>
-            <div>
-                <div class="pl-5">Confirme seu e-mail</div>
-                <div>
-                    <input
-                        id="confirmEmail"
-                        type="email"
-                        placeholder="Ex: passarinho@gmail.com"
-                        required
-                        v-model="confirmEmail"
-                        class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-3 focus:outline-none"
-                    />
-                    <div
-                        v-if="!equalEmail"
-                        class="text-xs text-red-600 px-5 font-extrabold"
-                    >
-                        E-mails não correspondem
-                    </div>
-                    <div v-else class="h-4"></div>
-                </div>
-            </div>
-            <div>
-                <div class="pl-5">Digite sua senha</div>
-                <input
-                    id="password"
-                    :type="typePassword"
-                    placeholder="Informe sua senha"
-                    minlength="8"
-                    required
-                    v-model="password"
-                    class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-3 focus:outline-none"
-                />
-                <!-- <div
-                    v-if="!(typePassword == 'text')"
-                    @click="showPassword()"
-                    class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
-                >
-                    visibility_off
-                </div>
-                <div
-                    v-if="typePassword == 'text'"
-                    @click="showPassword()"
-                    class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
-                >
-                    visibility
-                </div> -->
-                <div>
-                    <div class="pl-5">Confirme sua senha</div>
-                    <input
-                        id="confirmPassword"
-                        :type="typeConfirmPassword"
-                        placeholder="Confirme sua senha"
-                        minlength="8"
-                        required
-                        v-model="confirmPassword"
-                        class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-3 focus:outline-none"
-                    />
-                    <!-- <div
-                        v-if="!(typeConfirmPassword == 'text')"
-                        @click="showConfirmPassword()"
-                        class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
-                    >
-                        visibility_off
-                    </div>
-                    <div
-                        v-if="typeConfirmPassword == 'text'"
-                        @click="showConfirmPassword()"
-                        class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
-                    >
-                        visibility
-                    </div> -->
-                    <div
-                        v-if="!equalPassword"
-                        class="text-xs text-red-600 px-5 font-extrabold mb-3"
-                    >
-                        Senhas não correspondem
-                    </div>
-                    <div v-else class="h-7"></div>
-                </div>
-
-                <input
-                    id="submit"
-                    type="submit"
-                    value="Crie sua conta já"
-                    :disabled="!validatedForm"
-                    :class="{ 'disabled-button': !validatedForm }"
-                    class="text-xl text-white text-center bg-sky-600 w-full py-3 rounded-20 hover:cursor-pointer"
-                />
-            </div>
+            <button
+                class="text-xl text-white text-center bg-sky-600 w-full py-3 rounded-20 hover:cursor-pointer"
+            >
+                Crie sua conta já
+            </button>
         </form>
     </div>
 </template>
 
-<script>
-export default {};
+<script setup>
+import { ref, computed } from "vue";
+
+const email = ref("");
+const confirmEmail = ref("");
+const password = ref("");
+const confirmPassword = ref("");
+
+const isValidEmail = computed(() => {
+    return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.value);
+});
+const isValidPassword = computed(() => {
+    return /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/.test(
+        password.value
+    );
+});
+const equalEmail = computed(() => {
+    return email.value == confirmEmail.value && confirmEmail.value != "";
+});
+const equalPassword = computed(() => {
+    return (
+        password.value == confirmPassword.value && confirmPassword.value != ""
+    );
+});
 </script>
