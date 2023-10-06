@@ -38,23 +38,30 @@
             </div>
             <div v-else class="h-5"></div>
             <div class="pl-5">Digite sua senha</div>
-            <input
-                @input="validatingForm"
-                id="password"
-                v-model="password"
-                type="password"
-                placeholder="Insira sua senha"
-                class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-2 focus:outline-none"
-                :class="{ 'border-lime-600 border-1': isValidPassword }"
-            />
-            <div
-                v-if="!isValidPassword && validatingPassword"
-                class="text-xs text-red-600 pb-2 px-5"
-            >
-                Senha deve conter: 8 caracteres, 1 letra minúscula, 1 letra
-                maiúscula, 1 número, 1 caracter especial.
+            <div>
+                <input
+                    @input="validatingForm"
+                    id="password"
+                    v-model="password"
+                    type="password"
+                    placeholder="Insira sua senha"
+                    class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-2 focus:outline-none"
+                    :class="{ 'border-lime-600 border-1': isValidPassword }"
+                />
+                <!-- <div
+                    class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
+                >
+                    visibility_off
+                </div> -->
+                <div
+                    v-if="!isValidPassword && validatingPassword"
+                    class="text-xs text-red-600 pb-2 px-5"
+                >
+                    Senha deve conter: 8 caracteres, 1 letra minúscula, 1 letra
+                    maiúscula, 1 número, 1 caracter especial.
+                </div>
+                <div v-else class="h-5"></div>
             </div>
-            <div v-else class="h-5"></div>
             <div class="pl-5">Confirme sua senha</div>
             <input
                 @input="validatingForm"
@@ -77,7 +84,7 @@
                 @click.prevent="submitForm"
                 class="text-xl text-white text-center bg-sky-600 w-full py-3 rounded-20 mt-2 hover:cursor-pointer"
                 :class="{
-                    unavailable: !available,
+                    'button-unavailable': !available,
                 }"
                 :disabled="!available"
             >
@@ -131,16 +138,15 @@ const equalPassword = computed(() => {
     );
 });
 const available = computed(() => {
-    return equalEmail.value && equalPassword.value;
+    return (
+        isValidEmail.value &&
+        equalEmail.value &&
+        isValidPassword.value &&
+        equalPassword.value
+    );
 });
 
 const submitForm = computed(() => {
     console.log("Criando sua conta Piá!");
 });
 </script>
-
-<style scoped>
-.unavailable {
-    background-color: rgb(186 230 253);
-}
-</style>
