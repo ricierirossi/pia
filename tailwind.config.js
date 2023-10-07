@@ -17,6 +17,7 @@ export default {
             },
             spacing: {
                 88: "345px",
+                20: "20%",
             },
             screens: {
                 mobile: "0",
