@@ -38,40 +38,44 @@
             </div>
             <div v-else class="h-5"></div>
             <div class="pl-5">Digite sua senha</div>
-            <div>
+            <div class="flex relative">
                 <input
                     @input="validatingForm"
                     id="password"
                     v-model="password"
-                    type="password"
+                    :type="typePassword"
                     placeholder="Insira sua senha"
                     class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-2 focus:outline-none"
                     :class="{ 'border-lime-600 border-1': isValidPassword }"
                 />
-                <!-- <div
-                    class="material-symbols-outlined relative top-2 -left-9 text-gray-400 hover:cursor-pointer"
-                >
-                    visibility_off
-                </div> -->
-                <div
-                    v-if="!isValidPassword && validatingPassword"
-                    class="text-xs text-red-600 pb-2 px-5"
-                >
-                    Senha deve conter: 8 caracteres, 1 letra minúscula, 1 letra
-                    maiúscula, 1 número, 1 caracter especial.
+                <div @click="showHidePass">
+                    <ShowHide :showHide="visiblePass" />
                 </div>
-                <div v-else class="h-5"></div>
             </div>
+            <div
+                v-if="!isValidPassword && validatingPassword"
+                class="text-xs text-red-600 pb-2 px-5"
+            >
+                Senha deve conter: 8 caracteres, 1 letra minúscula, 1 letra
+                maiúscula, 1 número, 1 caracter especial.
+            </div>
+            <div v-else class="h-5"></div>
+
             <div class="pl-5">Confirme sua senha</div>
-            <input
-                @input="validatingForm"
-                id="confirmPassword"
-                v-model="confirmPassword"
-                type="password"
-                placeholder="Confirme sua senha"
-                class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-2 focus:outline-none"
-                :class="{ 'border-lime-600 border-1': equalPassword }"
-            />
+            <div class="flex relative">
+                <input
+                    @input="validatingForm"
+                    id="confirmPassword"
+                    v-model="confirmPassword"
+                    :type="typeConfirmPassword"
+                    placeholder="Confirme sua senha"
+                    class="text-gray-600 border rounded-20 top-2 border-gray-400 w-full py-2 px-5 mb-2 focus:outline-none"
+                    :class="{ 'border-lime-600 border-1': equalPassword }"
+                />
+                <div @click="showHideConfirmPass">
+                    <ShowHide :showHide="visibleConfirmPass" />
+                </div>
+            </div>
             <div
                 v-if="!equalPassword && validatingConfirmPassword"
                 class="h-5 text-xs text-red-600 pb-2 px-5"
@@ -107,6 +111,12 @@ const validatingConfirmEmail = ref(false);
 const validatingPassword = ref(false);
 const validatingConfirmPassword = ref(false);
 
+const visiblePass = ref(false);
+const visibleConfirmPass = ref(false);
+
+const typePassword = ref("password");
+const typeConfirmPassword = ref("password");
+
 function validatingForm(e) {
     const inputID = e.target.id;
 
@@ -118,6 +128,25 @@ function validatingForm(e) {
         validatingPassword.value = true;
     } else if (inputID == "confirmPassword") {
         validatingConfirmPassword.value = true;
+    }
+}
+
+function showHidePass() {
+    const passType = (visiblePass.value = !visiblePass.value);
+
+    if (typePassword.value == "password") {
+        typePassword.value = "text";
+    } else {
+        typePassword.value = "password";
+    }
+}
+function showHideConfirmPass() {
+    const passType = (visibleConfirmPass.value = !visibleConfirmPass.value);
+
+    if (typeConfirmPassword.value == "password") {
+        typeConfirmPassword.value = "text";
+    } else {
+        typeConfirmPassword.value = "password";
     }
 }
 
