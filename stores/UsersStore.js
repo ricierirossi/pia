@@ -3,18 +3,23 @@ import { defineStore } from "pinia";
 export const useUsersStore = defineStore("usersStore", {
     state: () => ({
         users: [
-            { id: 1, email: "user1@user", password: "12345678" },
-            { id: 2, email: "user2@user", password: "87654321" },
+            { email: "user1@user", password: "Aa1!Bb2@" },
+            { email: "user2@user", password: "Bb2@Aa1!" },
+            { email: "user3@user", password: "Aa1!Bb2@" },
         ],
     }),
-    actions: {
-        addUser(newUser) {
-            this.users.push(newUser);
-        },
-    },
     getters: {
-        countUsers: (state) => {
-            return state.users.length;
+        count() {
+            return this.users.length;
+        },
+        // Usando Arrow Function
+        // count: (state) => {
+        //     return state.users.length;
+        // },
+    },
+    actions: {
+        addUser(user) {
+            this.users.push(user);
         },
     },
 });
