@@ -26,9 +26,6 @@ logs
 # CSS
 assets/css
 
-.vercel
-
+# Others
 todo.vue
-xCreateAccount.vue
-
 .vercel
