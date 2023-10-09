@@ -1,6 +1,6 @@
 <template>
     <div class="w-full max-w-sm flex-col tablet:w-96">
-        <form class="flex-col justify-center items-center">
+        <form class="flex-col justify-center items-center" method="post">
             <div class="pl-5">Digite seu e-mail</div>
             <input
                 @input="validatingForm"
@@ -19,7 +19,7 @@
                 Email inválido.
             </div>
             <div v-else class="h-5"></div>
-            <div class="pl-5">Confirme seu e-mail</div>
+            <!-- <div class="pl-5">Confirme seu e-mail</div>
             <input
                 @input="validatingForm"
                 id="confirmEmail"
@@ -36,7 +36,7 @@
             >
                 Os emails não são iguais.
             </div>
-            <div v-else class="h-5"></div>
+            <div v-else class="h-5"></div> -->
             <div class="pl-5">Digite sua senha</div>
             <div class="flex relative">
                 <input
@@ -94,12 +94,17 @@
             >
                 Crie sua conta já
             </button>
+            <div>Ou</div>
+            <div class="bg-gray-400">Continuar com o Google</div>
         </form>
     </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
+import { useUsersStore } from "~/stores/UsersStore";
+
+const usersStore = useUsersStore();
 
 const email = ref("");
 const confirmEmail = ref("");
@@ -122,9 +127,9 @@ function validatingForm(e) {
 
     if (inputID == "email") {
         validatingEmail.value = true;
-    } else if (inputID == "confirmEmail") {
+    } /*else if (inputID == "confirmEmail") {
         validatingConfirmEmail.value = true;
-    } else if (inputID == "password") {
+    } */ else if (inputID == "password") {
         validatingPassword.value = true;
     } else if (inputID == "confirmPassword") {
         validatingConfirmPassword.value = true;
@@ -158,9 +163,9 @@ const isValidPassword = computed(() => {
         password.value
     );
 });
-const equalEmail = computed(() => {
-    return email.value == confirmEmail.value && confirmEmail.value != "";
-});
+// const equalEmail = computed(() => {
+//     return email.value == confirmEmail.value && confirmEmail.value != "";
+// });
 const equalPassword = computed(() => {
     return (
         password.value == confirmPassword.value && confirmPassword.value != ""
@@ -169,13 +174,19 @@ const equalPassword = computed(() => {
 const available = computed(() => {
     return (
         isValidEmail.value &&
-        equalEmail.value &&
+        // equalEmail.value &&
         isValidPassword.value &&
         equalPassword.value
     );
 });
 
-const submitForm = computed(() => {
+const submitForm = () => {
     console.log("Criando sua conta Piá!");
-});
+    if (available.value) {
+        usersStore.addUser({
+            email: email.value,
+            password: password.value,
+        });
+    }
+};
 </script>
