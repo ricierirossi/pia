@@ -42,26 +42,9 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { useUsersStore } from "~/stores/UsersStore";
 import { ref } from "vue";
 
-export default {
-    setup() {
-        const usersStore = useUsersStore();
-
-        const email = ref("");
-        const password = ref("");
-
-        const handleSubmit = () => {
-            usersStore.addUser({
-                id: Math.floor(Math.random() * 1000000), // <!-- TODO Mudar -->
-                email: email.value,
-                password: password.value,
-            });
-        };
-
-        return { handleSubmit, email, password };
-    },
-};
+const usersStore = useUsersStore();
 </script>
