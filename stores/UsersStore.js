@@ -2,24 +2,22 @@ import { defineStore } from "pinia";
 
 export const useUsersStore = defineStore("usersStore", {
     state: () => ({
-        users: [
-            { email: "user1@user", password: "Aa1!Bb2@" },
-            { email: "user2@user", password: "Bb2@Aa1!" },
-            { email: "user3@user", password: "Aa1!Bb2@" },
-        ],
+        users: [],
     }),
-    getters: {
-        count() {
-            return this.users.length;
-        },
-        // Usando Arrow Function
-        // count: (state) => {
-        //     return state.users.length;
-        // },
-    },
+
     actions: {
-        addUser(user) {
+        async createUser(user) {
             this.users.push(user);
+
+            const res = await fetch("http://localhost:3000/users/", {
+                method: "POST",
+                body: JSON.stringify(user),
+                headers: { "Content-Type": "application/json" },
+            });
+
+            if (res.error) {
+                console.log(res.error);
+            }
         },
     },
 });
