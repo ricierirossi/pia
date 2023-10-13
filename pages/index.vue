@@ -42,9 +42,4 @@
     </div>
 </template>
 
-<script setup>
-import { useUsersStore } from "~/stores/UsersStore";
-import { ref } from "vue";
-
-const usersStore = useUsersStore();
-</script>
+<script setup></script>
