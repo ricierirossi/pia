@@ -83,19 +83,22 @@
                 As senhas não são iguais.
             </div>
             <div v-else class="h-5"></div>
-
-            <button
-                @click.prevent="submitForm"
-                class="text-xl text-white text-center bg-sky-600 w-full py-3 rounded-20 mt-2 hover:cursor-pointer"
-                :class="{
-                    'button-unavailable': !available,
-                }"
-                :disabled="!available"
-            >
-                Crie sua conta já
-            </button>
-            <div>Ou</div>
-            <div class="bg-gray-400">Continuar com o Google</div>
+            <div class="flex flex-col items-center">
+                <button
+                    @click.prevent="submitForm"
+                    class="text-xl text-white text-center bg-sky-600 w-full py-3 rounded-20 mt-2 hover:cursor-pointer"
+                    :class="{
+                        'button-unavailable': !available,
+                    }"
+                    :disabled="!available"
+                >
+                    Crie sua conta já
+                </button>
+                <div>Ou</div>
+                <div class="text-green-700 font-extrabold">
+                    Continuar com o Google
+                </div>
+            </div>
         </form>
     </div>
 </template>
@@ -106,10 +109,11 @@ import { useUsersStore } from "~/stores/UsersStore";
 
 const usersStore = useUsersStore();
 
-const email = ref("");
+// <!-- ! Limpar Valores de Teste
+const email = ref("teste@teste.com");
 const confirmEmail = ref("");
-const password = ref("");
-const confirmPassword = ref("");
+const password = ref("Aa1@Aa1@");
+const confirmPassword = ref("Aa1@Aa1@");
 
 const validatingEmail = ref(false);
 const validatingConfirmEmail = ref(false);
@@ -182,11 +186,9 @@ const available = computed(() => {
 
 const submitForm = () => {
     console.log("Criando sua conta Piá!");
-    if (available.value) {
-        usersStore.addUser({
-            email: email.value,
-            password: password.value,
-        });
-    }
+    usersStore.createUser({
+        email: email.value,
+        password: password.value,
+    });
 };
 </script>
