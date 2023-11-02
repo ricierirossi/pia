@@ -3,15 +3,18 @@
         <div
             class="h-40 w-full bg-pia bg-cover bg-no-repeat bg-top-20 tablet:h-auto tablet:w-1/2"
         ></div>
+
         <div
             class="text-base text-zinc-800 flex flex-col items-center tablet:w-1/2"
         >
             <h1 class="text-4xl text-center my-5 px-2 tablet:mt-14">
                 Venha fazer parte do Piá!
             </h1>
+
             <div class="w-full flex flex-col items-center px-5">
                 <CreateAccount class="w-full" />
             </div>
+
             <div class="px-7 py-2">
                 <p class="max-w-sm text-xs text-center">
                     Ao se inscrever, você concorda com os
