@@ -90,18 +90,14 @@
 </template>
 
 <script setup>
-// const { PrismaClient } = require("@prisma/client");
-// const prisma = new PrismaClient();
-
 import { ref } from "vue";
 import { useUsersStore } from "~/stores/UsersStore";
 
 const usersStore = useUsersStore();
 
-// <!-- ! Limpar Valores de Teste
-const email = ref("teste@teste.com");
-const password = ref("Aa1@Aa1@");
-const confirmPassword = ref("Aa1@Aa1@");
+const email = ref("");
+const password = ref("");
+const confirmPassword = ref("");
 
 const validatingEmail = ref(false);
 const validatingPassword = ref(false);
