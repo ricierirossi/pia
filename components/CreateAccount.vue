@@ -79,11 +79,9 @@
                     Crie sua conta já
                 </button>
 
-                <div>Ou</div>
+                <div class="my-2">Ou</div>
 
-                <div class="text-green-700 font-extrabold">
-                    Continuar com o Google
-                </div>
+                <GoogleButton />
             </div>
         </form>
     </div>
